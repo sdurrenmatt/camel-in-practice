@@ -32,18 +32,26 @@ public class RestRoutes extends RouteBuilder {
 
         rest()
             .openApi()
-            .specification("openapi/adopt-a-pet-api.yml")
-            .missingOperation("mock");
+                .specification("openapi/adopt-a-pet-api.yml")
+                .missingOperation("mock");
 
         from("direct:getRandomPet")
             .choice()
                 .when(header("type").isEqualTo("dog"))
-                    .setHeader(Exchange.HTTP_URI, constant("https://dog.ceo/api/breeds/image/random"))
-                    .to("http:dogApi")
-                    .to("jolt:jolt/dog-to-pet.json?inputType=JsonString&outputType=JsonString")
+                    .to("direct:getPetDog")
                 .when(header("type").isEqualTo("cat"))
-                    .setHeader(Exchange.HTTP_URI, constant("https://api.thecatapi.com/v1/images/search"))
-                    .to("http:catApi")
-                    .to("jolt:jolt/cat-to-pet.json?inputType=JsonString&outputType=JsonString");
+                    .to("direct:getCatPet");
+
+        from("direct:getPetDog")
+            .removeHeaders("*")
+            .setHeader(Exchange.HTTP_URI, constant("https://dog.ceo/api/breeds/image/random"))
+            .to("http:dogApi")
+            .to("jolt:jolt/dog-to-pet.json?inputType=JsonString&outputType=JsonString");
+
+        from("direct:getCatPet")
+            .removeHeaders("*")
+            .setHeader(Exchange.HTTP_URI, constant("https://api.thecatapi.com/v1/images/search"))
+            .to("http:catApi")
+            .to("jolt:jolt/cat-to-pet.json?inputType=JsonString&outputType=JsonString");
     }
 }
