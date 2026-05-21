@@ -27,13 +27,13 @@ public class TimerRoutes extends RouteBuilder {
     @Override
     public void configure() {
         // This route triggers once and logs "Hello world!" with detailed exchange information.
-        from("timer:hello?repeatCount=1&delay=-1")
+        from("timer:helloWorld?repeatCount=1&delay=-1")
             .setBody(constant("Hello world!"))
             .to("log:org.example.routes?showAll=true");
 
         // This route triggers 10 times, generating a random number (0-9) for each invocation,
         // and logs the iteration count alongside the random number.
-        from("timer:prng?repeatCount=10&includeMetadata=true")
+        from("timer:rng?repeatCount=10&includeMetadata=true")
             .log("i=${exchangeProperty.CamelTimerCounter} n=${random(10)}");
     }
 }
