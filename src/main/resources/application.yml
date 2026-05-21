@@ -1,3 +1,0 @@
-# File directories
-file.in.dir: ${user.home}/camel-spring-boot-demo/in
-file.out.dir: ${user.home}/camel-spring-boot-demo/out
