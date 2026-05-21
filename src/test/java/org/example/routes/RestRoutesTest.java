@@ -49,45 +49,45 @@ class RestRoutesTest {
     @EndpointInject("mock:http:catApi")
     private MockEndpoint mockCatApi;
 
-    @Value("classpath:data/pets/dog.json")
-    private Resource dogJsonResource;
+    @Value("classpath:data/pets/dog-api-response.json")
+    private Resource dogApiResponse;
 
-    @Value("classpath:data/pets/pet-dog.json")
-    private Resource petDogJsonResource;
+    @Value("classpath:data/pets/expected-pet-dog.json")
+    private Resource expectedPetDog;
 
-    @Value("classpath:data/pets/cat.json")
-    private Resource catJsonResource;
+    @Value("classpath:data/pets/cat-api-response.json")
+    private Resource catApiResponse;
 
-    @Value("classpath:data/pets/pet-cat.json")
-    private Resource petCatJsonResource;
+    @Value("classpath:data/pets/expected-pet-cat.json")
+    private Resource expectedPetCat;
 
     @Test
-    void testGetRandomPetDog() throws Exception {
-        String dogApiResponse = StreamUtils.copyToString(dogJsonResource.getInputStream(), StandardCharsets.UTF_8);
-        String petDogExpectedResponse = StreamUtils.copyToString(petDogJsonResource.getInputStream(), StandardCharsets.UTF_8);
+    void testGetPetDog() throws Exception {
+        String mockResponse = StreamUtils.copyToString(dogApiResponse.getInputStream(), StandardCharsets.UTF_8);
+        String expectedResponse = StreamUtils.copyToString(expectedPetDog.getInputStream(), StandardCharsets.UTF_8);
 
         mockDogApi.expectedMessageCount(1);
-        mockDogApi.returnReplyBody(constant(dogApiResponse));
+        mockDogApi.returnReplyBody(constant(mockResponse));
 
         ResponseEntity<String> response = restTemplate.getForEntity("/api/v1/pets/surprise?type=dog", String.class);
 
         mockDogApi.assertIsSatisfied();
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        JSONAssert.assertEquals(petDogExpectedResponse, response.getBody(), true);
+        JSONAssert.assertEquals(expectedResponse, response.getBody(), true);
     }
 
     @Test
-    void testGetRandomPetCat() throws Exception {
-        String catApiResponse = StreamUtils.copyToString(catJsonResource.getInputStream(), StandardCharsets.UTF_8);
-        String petCatExpectedResponse = StreamUtils.copyToString(petCatJsonResource.getInputStream(), StandardCharsets.UTF_8);
+    void testGetPetCat() throws Exception {
+        String mockResponse = StreamUtils.copyToString(catApiResponse.getInputStream(), StandardCharsets.UTF_8);
+        String expectedResponse = StreamUtils.copyToString(expectedPetCat.getInputStream(), StandardCharsets.UTF_8);
 
         mockCatApi.expectedMessageCount(1);
-        mockCatApi.returnReplyBody(constant(catApiResponse));
+        mockCatApi.returnReplyBody(constant(mockResponse));
 
         ResponseEntity<String> response = restTemplate.getForEntity("/api/v1/pets/surprise?type=cat", String.class);
 
         mockCatApi.assertIsSatisfied();
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        JSONAssert.assertEquals(petCatExpectedResponse, response.getBody(), true);
+        JSONAssert.assertEquals(expectedResponse, response.getBody(), true);
     }
 }
