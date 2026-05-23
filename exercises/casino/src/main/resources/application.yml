@@ -1,0 +1,1 @@
+casino.ws.endpoint: vertx-websocket:localhost:8081/casino
