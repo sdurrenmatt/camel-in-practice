@@ -1,4 +1,4 @@
-package com.durrenmatt.camel.exercises.casino.routes;
+package com.durrenmatt.camel.labs.casino.routes;
 
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;

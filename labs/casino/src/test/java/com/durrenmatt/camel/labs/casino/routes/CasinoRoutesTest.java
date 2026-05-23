@@ -1,8 +1,8 @@
-package com.durrenmatt.camel.exercises.casino.routes;
+package com.durrenmatt.camel.labs.casino.routes;
 
-import com.durrenmatt.camel.exercises.casino.model.SpinEvent;
-import com.durrenmatt.camel.exercises.casino.model.SpinEventType;
-import com.durrenmatt.camel.exercises.casino.model.SpinResponse;
+import com.durrenmatt.camel.labs.casino.model.SpinEvent;
+import com.durrenmatt.camel.labs.casino.model.SpinEventType;
+import com.durrenmatt.camel.labs.casino.model.SpinResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.component.mock.MockEndpoint;

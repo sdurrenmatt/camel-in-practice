@@ -1,8 +1,8 @@
-# Exercise #1 - The House Always Wins
+# Lab #1 - The House Always Wins
 
 ## Overview
 
-In this exercise, you will implement a simple yet realistic event-driven casino system using Apache Camel.
+In this lab, you will implement a simple yet realistic event-driven casino system using Apache Camel.
 
 A spin request is accepted through a REST API, processed asynchronously, and the spin
 result is delivered in real time via WebSocket.

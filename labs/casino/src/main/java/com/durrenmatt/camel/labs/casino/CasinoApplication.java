@@ -1,4 +1,4 @@
-package com.durrenmatt.camel.exercises.casino;
+package com.durrenmatt.camel.labs.casino;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

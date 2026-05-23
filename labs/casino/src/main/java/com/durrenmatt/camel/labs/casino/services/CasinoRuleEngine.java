@@ -1,6 +1,6 @@
-package com.durrenmatt.camel.exercises.casino.services;
+package com.durrenmatt.camel.labs.casino.services;
 
-import com.durrenmatt.camel.exercises.casino.model.SpinOutcome;
+import com.durrenmatt.camel.labs.casino.model.SpinOutcome;
 import org.springframework.stereotype.Service;
 
 @Service

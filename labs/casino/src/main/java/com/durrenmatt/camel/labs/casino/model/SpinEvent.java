@@ -1,4 +1,4 @@
-package com.durrenmatt.camel.exercises.casino.model;
+package com.durrenmatt.camel.labs.casino.model;
 
 public record SpinEvent(
         SpinEventType eventType,

@@ -1,4 +1,4 @@
-package com.durrenmatt.camel.exercises.casino.processors;
+package com.durrenmatt.camel.labs.casino.processors;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
