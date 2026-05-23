@@ -6,10 +6,10 @@
 
     <parent>
         <groupId>com.durrenmatt</groupId>
-        <artifactId>camel-spring-boot-lab-examples</artifactId>
+        <artifactId>camel-in-practice-examples</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>camel-spring-boot-lab-examples-timer</artifactId>
+    <artifactId>camel-in-practice-examples-timer</artifactId>
 
 </project>

@@ -1,3 +1,3 @@
 # File directories
-file.in.dir: ${user.home}/camel-spring-boot-lab/in
-file.out.dir: ${user.home}/camel-spring-boot-lab/out
+file.in.dir: ${user.home}/camel-in-practice/in
+file.out.dir: ${user.home}/camel-in-practice/out
