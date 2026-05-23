@@ -1,5 +1,11 @@
 package com.durrenmatt.camel.exercises.casino.routes;
 
+import com.durrenmatt.camel.exercises.casino.model.SpinEvent;
+import com.durrenmatt.camel.exercises.casino.model.SpinEventType;
+import com.durrenmatt.camel.exercises.casino.model.SpinOutcome;
+import com.durrenmatt.camel.exercises.casino.model.SpinResponse;
+import com.durrenmatt.camel.exercises.casino.services.CasinoRuleEngine;
+import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
@@ -14,25 +20,28 @@ public class CasinoRoutes extends RouteBuilder {
             .to("direct:spin");
 
         from("direct:spin")
-            // TODO 1: Generate a unique spinId (UUID v4) and store it as an exchange property
-            // Hint: Use a Simple expression (https://camel.apache.org/components/languages/simple-language.html)
+            .setProperty("spinId", simple("${uuid(random)}"))
 
-            // TODO 2: Build a REST response containing the spinId (HTTP 202, SpinResponse)
+            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(202))
+            .setBody(exchange -> new SpinResponse(exchange.getProperty("spinId", String.class)))
 
-            // TODO 3: Serialize the response to JSON
+            .marshal().json()
 
             .to(ExchangePattern.InOnly, "seda:spinQueue");
 
         from("seda:spinQueue")
-            // TODO 4: Invoke the RNG processor to generate a random spinValue
-            // Hint: Check how to use a processor in a route (https://camel.apache.org/manual/processor.html)
+            .process("casinoRngProcessor")
 
-            // TODO 5: Use the Rule Engine to compute the spinOutcome
-            // Hint: Use a Bean method expression (https://camel.apache.org/components/languages/bean-language.html)
+            .setProperty("spinOutcome", method(CasinoRuleEngine.class, "evaluate(${exchangeProperty.spinValue})"))
 
-            // TODO 6: Build the WebSocket event payload (SpinEvent)
+            .setBody(exchange -> new SpinEvent(
+                    SpinEventType.SPIN_RESULT,
+                    exchange.getProperty("spinId", String.class),
+                    exchange.getProperty("spinValue", Integer.class),
+                    exchange.getProperty("spinOutcome", SpinOutcome.class)
+            ))
 
-            // TODO 7: Serialize the event to JSON
+            .marshal().json()
 
             .to("{{casino.ws.endpoint}}");
     }
