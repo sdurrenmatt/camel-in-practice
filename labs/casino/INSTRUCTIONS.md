@@ -15,7 +15,7 @@ flowchart LR
     SEDA -->|Generate spin value| RNG[RNG Processor]
     RNG -->|Determine spin outcome| RULES[Rule Engine]
     RULES -->|Publish spin result| WS[WebSocket]
-    WS -->|Real - time event| Client
+    WS -->|Real-time event| Client
 ```
 
 ## Your Task

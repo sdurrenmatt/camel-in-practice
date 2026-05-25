@@ -17,7 +17,7 @@ public class CasinoRoutes extends RouteBuilder {
     public void configure() {
         rest("/casino")
             .post("/spin")
-            .to("direct:spin");
+                .to("direct:spin");
 
         from("direct:spin")
             .setProperty("spinId", simple("${uuid(random)}"))
