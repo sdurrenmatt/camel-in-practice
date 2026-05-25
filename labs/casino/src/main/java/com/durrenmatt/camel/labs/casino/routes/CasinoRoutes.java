@@ -11,7 +11,7 @@ public class CasinoRoutes extends RouteBuilder {
     public void configure() {
         rest("/casino")
             .post("/spin")
-            .to("direct:spin");
+                .to("direct:spin");
 
         from("direct:spin")
             // TODO 1: Generate a unique spinId (UUID v4) and store it as an exchange property
@@ -32,7 +32,7 @@ public class CasinoRoutes extends RouteBuilder {
 
             // TODO 6: Build the WebSocket event payload (SpinEvent)
 
-            // TODO 7: Serialize the event to JSON
+            // TODO 7: Serialize the event payload to JSON
 
             .to("{{casino.ws.endpoint}}");
     }
